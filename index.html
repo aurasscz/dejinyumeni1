@@ -86,6 +86,7 @@ section h2 small{font-family:var(--body);font-size:14px;color:var(--muted);font-
 
 <script>
 const ICON = {
+ 'vit':`<path d="M30 62h60v18q0 36-30 42-30-6-30-42z" fill="var(--panel)"/><path d="M24 62h72"/><path d="M42 150q-8-14 2-24 2 10 8 14M62 152q-8-16 2-28 4 12 10 18M80 150q-6-10 0-20"/><circle cx="48" cy="46" r="4"/><circle cx="64" cy="36" r="3"/><circle cx="76" cy="48" r="2.5"/>`,
  'jakub-m':`<path d="M70 152V66"/><path d="M62 66q-6-34 8-52 14 18 8 52z" fill="var(--panel)"/><path d="M34 22q-22 64 0 128"/><path d="M34 22v128" stroke-width="1.5"/>`,
  'filip':`<path d="M60 14v136M32 48h56"/><path d="M44 150h32"/>`,
  'juda':`<path d="M36 150 60 52"/><path d="M52 56q-6-26 6-38 16 4 12 40z" fill="var(--panel)"/><circle cx="60" cy="30" r="2" fill="currentColor"/><circle cx="64" cy="44" r="2" fill="currentColor"/><path d="M88 152V22M88 22l0-12"/><path d="M88 30q20 4 22 24-12-4-22-2z" fill="var(--panel)"/><path d="M88 34l-10 8 10 4"/>`,
@@ -115,6 +116,7 @@ const S = [
  {s:'svet', n:'sv. Štěpán', a:'kameny (+ palma, jáhenské roucho)', d:'První křesťanský mučedník, ukamenován u hradeb Jeruzaléma. Svátek 26. 12.', p:'stepan'},
  {s:'svet', n:'sv. Šebestián', a:'šípy, strom/sloup', d:'Velitel stráže Diocletiána, prostřílen šípy (přežil), pak ubit holemi. Ochránce proti moru.', p:'sebestian'},
  {s:'svet', n:'sv. Florián', a:'římský voják, vědro s vodou, hořící dům', d:'Umučen za Diocletiána; patron hasičů.', p:'florian'},
+ {s:'svet', n:'sv. Vít', a:'kotel s vařícím olejem, kohout, lev', d:'Mladý mučedník za Diocletiána; hozen do kotle s vařícím olejem a lvům, ale přežil. Patron katedrály na Pražském hradě. Svátek 15. 6.', i:'vit'},
  {s:'svet', n:'sv. Roch', a:'pes (s chlebem), morový vřed na stehně, poutnická hůl', d:'Ošetřoval nemocné morem, sám onemocněl; pes mu nosil jídlo. Ochránce proti moru.', t:'Pomůcka z tvých zápisků: Roch → hroch', p:'roch'},
  {s:'svet', n:'sv. Vavřinec', a:'rošt', d:'Místo pokladů církve přivedl chudé a nemocné; upečen zaživa na roštu.', p:'vavrinec'},
  {s:'svet', n:'sv. Kryštof', a:'obr s Ježíškem na ramenou, brodí řeku, opírá se o kmen/hůl', d:'„Nosič Krista“; patron dopravy, cestujících, obchodníků i zlodějů.', p:'krystof'},
@@ -122,8 +124,7 @@ const S = [
  {s:'svet', n:'sv. Helena', a:'císařovna s korunou a křížem', d:'Matka Konstantina Velikého (313 povolil křesťanství); v Palestině našla Kristův kříž.', p:'helena'},
  {s:'svet', n:'sv. Jiří', a:'rytíř na koni zabíjí kopím draka', d:'Zachránil město a princeznu; patron rytířů a Anglie. Svátek 24. 4.', p:'jiri'},
  {s:'svet', n:'sv. Norbert', a:'monstrance, pod nohama ďábel/kacíř', d:'Zakladatel premonstrátů, pohřben na Strahově.', p:'norbert'},
- {s:'svet', n:'sv. František z Assisi', a:'stigmata (rány na rukou a nohou), hnědý hábit s provazem, ptáci', d:'Rozdal majetek, chudoba a pokora, žebravé řády, sv. Klára, kázal ptáčkům.', p:'frantisek'},
- {s:'svet', n:'sv. Růžička', a:'Klobouk a učebnice dějin umění', d:'Patron dějin umění a němčiny', p:'img/file_000000009c108210bba01ffab58a52be.png'}
+ {s:'svet', n:'sv. František z Assisi', a:'stigmata (rány na rukou a nohou), hnědý hábit s provazem, ptáci', d:'Rozdal majetek, chudoba a pokora, žebravé řády, sv. Klára, kázal ptáčkům.', p:'frantisek'}
 ];
 S.forEach((x,k)=>x.k=k);
 
@@ -136,8 +137,7 @@ const save=()=>{try{localStorage.setItem('svati',JSON.stringify({f:filter}))}cat
 const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
 const secName=id=>SECTIONS.find(x=>x.id===id).name;
 function card(x){
-  const picSrc = x.p ? (x.p.includes('/') || x.p.includes('.') ? (x.p.startsWith('img/') ? x.p : `img/${x.p}`) : `img/${x.p}.jpg`) : null;
-  const pic = picSrc ? `<img src="${picSrc}" alt="" loading="lazy">`
+  const pic = x.p ? `<img src="img/${x.p}.jpg" alt="" loading="lazy">`
                   : `${svg(x.i)}<span class="noimg">atribut (obrázek v zápiscích chybí)</span>`;
   return `<article class="card" data-k="${x.k}" tabindex="0">
     <figure class="pic">${pic}</figure>
